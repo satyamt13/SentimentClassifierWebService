@@ -1,3 +1,5 @@
+from apps.ml.preprocessors.textPreprocessor import textPreprocessor
+
 class CLSTM:
     def __init__(self):
         pass
