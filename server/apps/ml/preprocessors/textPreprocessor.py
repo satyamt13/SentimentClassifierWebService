@@ -13,7 +13,7 @@ class textPreprocessor:
     with open("../../artifacts/contractions_mapping.json") as jsonFile:
         CONTRACTION_MAPPING = json.load(jsonFile)
     COMPILED_RE = re.compile('(%s)' % '|'.join(CONTRACTION_MAPPING.keys()))
-    PHRASES_MODEL = Phraser.load("PathToModelGoesHere.pkl")
+    PHRASES_MODEL = Phraser.load("/Users/sam/Documents/project_reboot/phrases_model.pkl")
 
     def lower_case(self, string):
         return string.lower()
