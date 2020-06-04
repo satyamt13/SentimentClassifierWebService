@@ -1,4 +1,4 @@
-from apps.ml.preprocessors import textPreprocessor
+from apps.ml.preprocessors.textPreprocessor import textPreprocessor
 from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
 import pickle
@@ -11,19 +11,22 @@ class CLSTM:
             self.tokenizer = pickle.load(handle)
 
     def preprocessing(self, inputData):
-        return self.preprocessor.preprocess(inputData)
+        return self.preprocessor.preprocess(inputData["text"])
 
     def encode_tokenize_pad(self, preprocessed_input_data):
         tokenized_input_data = self.tokenizer.texts_to_sequences(preprocessed_input_data)
         return pad_sequences(tokenized_input_data, maxlen=100, padding="pre", truncating="pre")
 
     def predict(self, padded_tokenized_input_data):
-        return self.model.predict_classes(padded_tokenized_input_data)
+        return self.model.predict_proba(padded_tokenized_input_data)
 
     def postprocessing(self, probability_vector):
-        return {"Positive": probability_vector[0], "Neutral": probability_vector[1], "Negative": probability_vector[2]}
+        return {"Positive": probability_vector[0],
+                "Neutral": probability_vector[1],
+                "Negative": probability_vector[2],
+                "Status": "OK"}
 
-    def computePrediction(self, inputData):
+    def compute_prediction(self, inputData):
         try:
             preprocessed_input_data = self.preprocessing(inputData)
             encoded_padded_input_data = self.encode_tokenize_pad(preprocessed_input_data)
