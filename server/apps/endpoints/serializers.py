@@ -14,7 +14,7 @@ class MlAlgorithmSerializer(serializers.ModelSerializer):
 
     currentStatus = serializers.SerializerMethodField(read_only=True)
 
-    def getCurrentStatus(self, MlAlgorithm):
+    def get_currentStatus(self, MlAlgorithm):
         return MlAlgorithmStatus.objects.filter(parentAlgorithm = MlAlgorithm)\
     .latest("createdAt").status
 

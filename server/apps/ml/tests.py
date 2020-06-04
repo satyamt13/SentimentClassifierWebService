@@ -1,6 +1,7 @@
 from django.test import TestCase
-
 from apps.ml.sentimentClassifier.CLSTM import CLSTM
+import inspect
+from apps.ml.registry import MlRegistry
 
 class MlTests(TestCase):
     def test_model(self):
@@ -28,5 +29,29 @@ class MlTests(TestCase):
         self.assertTrue("Neutral" in response)
         self.assertTrue("Negative" in response)
         print(response)
+
+    def test_registry(self):
+        registry = MlRegistry()
+        self.assertEqual(len(registry.endpoints),0)
+        endpoint_name = "sentiment_classifier"
+        algorithm_object = CLSTM()
+        algorithm_name = "CLSTM"
+        algorithm_status = "production"
+        algorithm_version = "0.0.1"
+        algorithm_owner = "Luci4"
+        algorithm_description = """C-LSTM(Zhou Et al. 2015) sentiment classifier with Phrases2Vec embedding layer
+         trained on over 1 million Amazon movies & T.V. reviews"""
+        algorithm_code = inspect.getsource(CLSTM)
+        registry.add_algorithm(endpoint_name, algorithm_object, algorithm_name,
+                               algorithm_status, algorithm_version, algorithm_owner,
+                               algorithm_description, algorithm_code)
+        self.assertEqual(len(registry.endpoints), 1)
+
+
+
+
+
+
+
 
 
