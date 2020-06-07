@@ -21,7 +21,7 @@ class MlAlgorithmStatus(models.Model):
     active = models.BooleanField()
     createdBy = models.CharField(max_length=128)
     createdAt = models.DateTimeField(auto_now_add=True, blank=True)
-    parentAlgorithm = models.ForeignKey(MlAlgorithm, on_delete=models.CASCADE)
+    parentAlgorithm = models.ForeignKey(MlAlgorithm, on_delete=models.CASCADE, related_name="status")
 
 class MLRequest(models.Model):
     inputData = models.CharField(max_length=10000)

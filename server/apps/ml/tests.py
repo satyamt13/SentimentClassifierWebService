@@ -25,6 +25,7 @@ class MlTests(TestCase):
         my_alg = CLSTM()
         response = my_alg.compute_prediction(input_data)
         self.assertEqual("OK", response["Status"])
+        self.assertTrue("Label" in response)
         self.assertTrue("Positive" in response)
         self.assertTrue("Neutral" in response)
         self.assertTrue("Negative" in response)
