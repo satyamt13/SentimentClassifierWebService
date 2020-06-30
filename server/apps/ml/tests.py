@@ -2,7 +2,9 @@ from django.test import TestCase
 from apps.ml.sentimentClassifier.CLSTM import CLSTM
 import inspect
 from apps.ml.registry import MlRegistry
-
+'''
+Quick sanity test for the API and the model using and in the vocabulary input 
+'''
 class MlTests(TestCase):
     def test_model(self):
         input_data = {

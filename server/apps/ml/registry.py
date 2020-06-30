@@ -1,7 +1,9 @@
 from apps.endpoints.models import Endpoint
 from apps.endpoints.models import MlAlgorithm
 from apps.endpoints.models import MlAlgorithmStatus
-
+'''
+Registering our model when the server is run 
+'''
 class MlRegistry:
     def __init__(self):
         self.endpoints = {}

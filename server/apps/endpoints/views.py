@@ -17,7 +17,12 @@ from rest_framework import views, status
 from rest_framework.response import Response
 from apps.ml.registry import MlRegistry
 from server.wsgi import registry
-
+'''
+View Objects associated with each of our models that will help us retrieve 
+our model objects as we need them as well as well as directly supply input 
+and get a prediction using the GUI on the /api/v1/{model}/predict page 
+in addition to being able to make http calls to the REST API 
+'''
 class EndpointViewSet(
     mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
 ):
@@ -36,7 +41,7 @@ def deactivate_other_statuses(instance):
                                                      active = True)
     for i in range( len(old_statuses) ):
         old_statuses[i].active = False
-    MlAlgorithmStatus.objects.bulk_update( old_statuses, ["active"] )
+    MlAlgorithmStatus.objects.bulk_update(old_statuses, ["active"])
 
 class MlAlgorithmStatusViewSet(
     mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet,
@@ -72,16 +77,14 @@ class PredictView(views.APIView):
                 {"status": "Error", "message": "Ml algorithm is not available"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        if len(algs) == 500 and algorithm_status != "ab_testing": #Test in Progress
+        if len(algs) == 500:
             print(algs)
             return Response(
                 {"status": "Error", "message": "Ml Algorithm selection is ambiguous. Please specify algorithm version"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         alg_index = 0
-        if algorithm_status == "ab_testing":
-            alg_index = 0 if rand() < 0.5 else 1
-        algorithm_object = registry.endpoints[algs[alg_index].id] #registry.endpoints[9]
+        algorithm_object = registry.endpoints[algs[alg_index].id] #registry.endpoints[10]
         prediction = algorithm_object.compute_prediction(request.data)
         label = prediction["Label"] if "Label" in prediction else "error"
         ml_request = MLRequest(

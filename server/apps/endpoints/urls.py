@@ -6,7 +6,9 @@ from apps.endpoints.views import MlAlgorithmStatusViewSet
 from apps.endpoints.views import MLRequestViewSet
 from apps.endpoints.views import PredictView
 
-
+'''
+The urls visible at the ROOT API page 
+'''
 router = DefaultRouter(trailing_slash=False)
 router.register(r"endpoints", EndpointViewSet, basename="endpoints")
 router.register(r"mlalgorithm", MlAlgorithmViewSet, basename="mlalgorithms")

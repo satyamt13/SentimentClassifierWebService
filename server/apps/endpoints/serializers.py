@@ -3,7 +3,11 @@ from apps.endpoints.models import Endpoint
 from apps.endpoints.models import MlAlgorithm
 from apps.endpoints.models import MlAlgorithmStatus
 from apps.endpoints.models import MLRequest
-
+'''
+Serializers that make it possible to pack and unpack our database objects into JSON objects 
+There is a serializer associated with every model we defined in the models.py file 
+that helps sets the read, write or read + write fields in our models
+'''
 class EndpointSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endpoint
