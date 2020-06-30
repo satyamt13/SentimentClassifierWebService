@@ -1,5 +1,4 @@
 from django.db import transaction
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework import mixins
 from apps.endpoints.models import Endpoint
@@ -12,10 +11,8 @@ from apps.endpoints.models import MLRequest
 from apps.endpoints.serializers import MLRequestSerializer
 from rest_framework.exceptions import APIException
 import json
-from numpy.random import rand
 from rest_framework import views, status
 from rest_framework.response import Response
-from apps.ml.registry import MlRegistry
 from server.wsgi import registry
 '''
 View Objects associated with each of our models that will help us retrieve 
