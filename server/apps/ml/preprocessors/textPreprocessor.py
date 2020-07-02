@@ -8,17 +8,21 @@ from gensim.parsing.preprocessing import strip_numeric
 from gensim.parsing.preprocessing import strip_punctuation
 from gensim.parsing.preprocessing import strip_tags
 from gensim.models.phrases import Phraser
-
+import os
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 '''
 text preprocessor class that applies all preprocessing steps to raw input 
 before it can be passed to the model. It uses two static files associated with 
 expanding contractions and the phrases model.
 '''
 class textPreprocessor:
-    with open("/Users/sam/Documents/project_reboot/contraction_mapping.json") as jsonFile:
+
+    with open(os.path.join(CURRENT_PATH, "../../artifacts/contractions_mapping.json")) as jsonFile:
         CONTRACTION_MAPPING = json.load(jsonFile)
+
     COMPILED_RE = re.compile('(%s)' % '|'.join(CONTRACTION_MAPPING.keys()))
-    PHRASES_MODEL = Phraser.load("/Users/sam/Documents/project_reboot/phrases_model.pkl")
+
+    PHRASES_MODEL = Phraser.load(os.path.join(CURRENT_PATH, "../../artifacts/phrases_model.pkl"))
 
     def lower_case(self, string):
         return string.lower()

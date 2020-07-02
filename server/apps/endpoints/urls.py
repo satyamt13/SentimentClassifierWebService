@@ -17,6 +17,7 @@ router.register(r"mlrequests", MLRequestViewSet, basename="mlrequests")
 
 
 urlpatterns = [
+    url(r"", include(router.urls)),
     url(r"^api/v1", include(router.urls)),
     url(r"^api/v1/(?P<endpoint_name>.+)/predict$", PredictView.as_view(), name="predict"),
 ]
