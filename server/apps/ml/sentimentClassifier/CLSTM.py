@@ -14,7 +14,7 @@ class CLSTM:
     '''
     def __init__(self):
         self.preprocessor = textPreprocessor()
-        self.model = load_model("/Users/sam/Documents/project_reboot/c_lstm_reduced.h5")
+        self.model = load_model(os.path.join(CURRENT_PATH, "../../artifacts/c_lstm_reduced.h5"))
         self.model._make_predict_function()
         with open(os.path.join(CURRENT_PATH, "../../artifacts/keras_tokenizer.json")) as f:
             data = json.load(f)
