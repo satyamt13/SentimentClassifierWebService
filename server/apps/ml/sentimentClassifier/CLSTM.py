@@ -4,6 +4,8 @@ from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 import json
 from keras_preprocessing.text import tokenizer_from_json
+import os
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 class CLSTM:
     '''
@@ -14,7 +16,7 @@ class CLSTM:
         self.preprocessor = textPreprocessor()
         self.model = load_model("/Users/sam/Documents/project_reboot/c_lstm_reduced.h5")
         self.model._make_predict_function()
-        with open("/Users/sam/Documents/project_reboot/keras_tokenizer.json") as f:
+        with open(os.path.join(CURRENT_PATH, "../../artifacts/keras_tokenizer.json")) as f:
             data = json.load(f)
             self.tokenizer = tokenizer_from_json(data)
     '''
